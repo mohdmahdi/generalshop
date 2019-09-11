@@ -47,6 +47,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('tag-test',function(){
+
+    $tag = \App\Tag::find(5);
+
+    return $tag->products;
+});
+
+
+Route::get('role-test',function(){
+
+    $users = \App\User::find(501);
+
+    return $users->roles;
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -54,4 +69,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('email-test' , function (){
 
     return 'hello';
-})->middleware(['auth', 'email_verified']);
+})->middleware(['auth', 'user_is_support']);

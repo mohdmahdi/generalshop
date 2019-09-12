@@ -70,3 +70,10 @@ Route::get('email-test' , function (){
 
     return 'hello';
 })->middleware(['auth', 'user_is_support']);
+
+Route::group(['auth','user_is_admin'] , function(){
+
+    Route::get ('units', 'unitController@index')->name('units');
+    Route::get ('add-unit', 'unitController@showAdd')->name('new-unit');
+
+});

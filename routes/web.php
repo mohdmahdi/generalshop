@@ -73,7 +73,35 @@ Route::get('email-test' , function (){
 
 Route::group(['auth','user_is_admin'] , function(){
 
+    //units
+
     Route::get ('units', 'unitController@index')->name('units');
-    Route::get ('add-unit', 'unitController@showAdd')->name('new-unit');
+    //categories
+    Route::get ('categories', 'categoryController@index')->name('categories');
+    //products
+    Route::get ('products', 'productController@index')->name('products');
+
+    //Tags
+    Route::get ('tags', 'tagController@index')->name('tags');
+
+    //payments
+    //Orders
+
+    //Countries
+    Route::get ('countries', 'countryController@index')->name('countries');
+    //Cities
+    Route::get ('cities', 'cityController@index')->name('cities');
+    //States
+    Route::get ('states', 'stateController@index')->name('states');
+
+
+    //Reviews
+
+    Route::get ('reviews', 'reviewController@index')->name('reviews');
+    //Tickets
+    Route::get ('tickets', 'ticketController@index')->name('tickets');
+
+    //Roles
+    Route::get ('roles', 'roleController@index')->name('roles');
 
 });

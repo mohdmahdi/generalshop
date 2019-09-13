@@ -9,6 +9,8 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <script src="https://kit.fontawesome.com/3b85303480.js"></script>
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -55,6 +57,49 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                                    <a class="dropdown-item" href="{{ route('products') }}">
+                                        {{ __('Products') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ route('categories') }}">
+                                        {{ __('Categories') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ route('tags') }}">
+                                        {{ __('Tags') }}
+                                    </a>
+
+
+                                    <a class="dropdown-item" href="{{ route('units') }}">
+                                        {{ __('Units') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ route('countries') }}">
+                                        {{ __('Countries') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ route('states') }}">
+                                        {{ __('States') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ route('cities') }}">
+                                        {{ __('Cities') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ route('roles') }}">
+                                        {{ __('Roles') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ route('reviews') }}">
+                                        {{ __('Reviews') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ route('tickets') }}">
+                                        {{ __('Tickets') }}
+                                    </a>
+
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

@@ -76,6 +76,9 @@ Route::group(['auth','user_is_admin'] , function(){
     //units
 
     Route::get ('units', 'unitController@index')->name('units');
+    Route::post ('units', 'unitController@store');
+    Route::delete ('units', 'unitController@delete');
+    Route::put ('units', 'unitController@update');
     //categories
     Route::get ('categories', 'categoryController@index')->name('categories');
     //products

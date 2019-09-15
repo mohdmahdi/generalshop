@@ -19,12 +19,35 @@ class UnitController extends Controller
         $units=Unit::paginate(env('PAGINATION_COUNT'));
 
         return view('admin.units.units')->with(
-            ['units'=> $units]);
+            [
+                'units'=> $units,
+                'showLinks'=> true,
+
+            ]);
     }
 
 
-    public function search(){
-        //TODO: add unit search
+    public function search(Request $request){
+        $request->validate([
+            'unit_search' =>'required'
+        ]);
+
+        $searchTerm = $request->input('unit_search');
+
+        $units=Unit::where(
+            'unit_name' ,'Like','%' .$searchTerm.'%'
+        )->orWhere(
+            'unit_code' ,'Like','%' .$searchTerm.'%'
+        )->get();
+
+        if(count($units)> 0) {
+            return view('admin.units.units')->with([
+               'units' => $units,
+               'showLinks' => false,
+            ]);
+        }
+        \Illuminate\Support\Facades\Session::flash('message','Nothing Found!!!');
+        return redirect()->back();
     }
 
     private function unitNameExists($unitName){

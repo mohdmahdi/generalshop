@@ -33,11 +33,11 @@
                             <div class="col-md-3">
                                 <div class="alert alert-primary" role="alert">
                                     <span class="buttons-span">
-                                        <span><a class="edit_unit"
+                                        <span><a class="edit-unit"
                                                  data-unitname = "{{$unit->unit_name}}"
                                                  data-unitcode="{{$unit->unit_code}}"
                                                  data-unitid="{{$unit->id}}"><i class="fas fa-edit"></i></a></span>
-                                        <span><a class="delete_unit"
+                                        <span><a class="delete-unit"
                                                  data-unitname = "{{$unit->unit_name}}"
                                                  data-unitcode="{{$unit->unit_code}}"
                                                  data-unitid="{{$unit->id}}"><i class="fas fa-trash-alt"></i></a>
@@ -146,6 +146,7 @@
 @section('scripts')
     <script>
             $(document).ready(function () {
+                console.log('loaded');
                 var $deleteUnit= $('.delete-unit');
                 var $deleteWindow = $('#delete-window');
                 var $unitId = $('#unit_id');
@@ -153,6 +154,7 @@
 
                 $deleteUnit.on('click', function(element){
                     element.preventDefault();
+                    console.log('clicked');
                     var unit_id  = $(this).data('unitid');
                     var unitName = $(this).data('unitname');
                     var unitCode = $(this).data('unitcode');
@@ -164,9 +166,9 @@
                 var $editUnit = $('.edit-unit');
                 var $editWindow =$('#edit-window');
 
-                var $edit_unit_name = $(#edit_unit_name);
-                var $edit_unit_code = $(#edit_unit_code);
-                var $edit_unit_id = $(#edit_unit_id);
+                var $edit_unit_name = $('#edit_unit_name');
+                var $edit_unit_code = $('#edit_unit_code');
+                var $edit_unit_id = $('#edit_unit_id');
 
                 $editUnit.on('click', function (element) {
                     element.preventDefault();

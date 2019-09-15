@@ -54,11 +54,13 @@ class UnitController extends Controller
             return redirect()->back();
         }
 
-        public function delete(Request $request) {
+        public function delete(Request $request){
+
             if(is_null($request->input('unit_id'))|| empty($request->input('unit_id'))){
                 \Illuminate\Support\Facades\Session::flash('message','Unit ID is required');
                 return redirect()->back();
             }
+
             $id = $request ->input('unit_id');
             Unit::destroy($id);
             \Illuminate\Support\Facades\Session::flash('message' ,'Unit has been deleted');

@@ -22,12 +22,55 @@ class UnitController extends Controller
             ['units'=> $units]);
     }
 
+
+    public function search(){
+        //TODO: add unit search
+    }
+
+    private function unitNameExists($unitName){
+
+        $unit = Unit::where(
+            'unit_name','=',$unitName
+        )->first();
+
+        if(!is_null($unit)){
+            \Illuminate\Support\Facades\Session::flash('message','unit Name('.$unitName.') already exist');
+            return false;
+        }
+
+        return true;
+    }
+
+
+    private function unitCodeExists($unitCode){
+
+        $unit = Unit::where(
+            'unit_code','=',$unitCode
+        )->first();
+
+        if(!is_null($unit)){
+            \Illuminate\Support\Facades\Session::flash('message','unit Code('.$unitCode.') already exist');
+            return false;
+        }
+        return true;
+    }
+
     public function store(Request $request){
         $request->validate([
 
             'unit_name' => 'required',
             'unit_code' => 'required',
         ]);
+
+        $unitName = $request->input('unit_name');
+        $unitCode = $request->input('unit_code');
+
+        if(!$this->unitNameExists($unitName)){
+            return redirect()->back();
+        }
+        if(!$this->unitCodeExists($unitCode)){
+            return redirect()->back();
+        }
 
         $unit = new Unit();
         $unit->unit_name = $request->input('unit_name');
@@ -43,6 +86,17 @@ class UnitController extends Controller
                 'unit_id'   => 'required',
                 'unit_name' => 'required',
             ]);
+
+
+            $unitName = $request->input('unit_name');
+            $unitCode = $request->input('unit_code');
+
+            if(!$this->unitNameExists($unitName)){
+                return redirect()->back();
+            }
+            if(!$this->unitCodeExists($unitCode)){
+                return redirect()->back();
+            }
 
             $unitID = intval($request->input('unit_id'));
             $unit = Unit::find($unitID);

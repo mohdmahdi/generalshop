@@ -39,7 +39,7 @@ class UnitController extends Controller
         )->orWhere(
             'unit_code' ,'Like','%' .$searchTerm.'%'
         )->get();
-
+//
         if(count($units)> 0) {
             return view('admin.units.units')->with([
                'units' => $units,

@@ -79,7 +79,7 @@ Route::group(['auth','user_is_admin'] , function(){
     Route::post ('units', 'UnitController@store');
     Route::delete ('units', 'UnitController@delete');
     Route::put ('units', 'UnitController@update');
-    Route::post ('search-units', 'UnitController@search')->name('search-units');
+    Route::get('search-units', 'UnitController@search')->name('search-units');
     //categories
     Route::get ('categories', 'categoryController@index')->name('categories');
     //products
@@ -88,6 +88,10 @@ Route::group(['auth','user_is_admin'] , function(){
     //Tags
     Route::get ('tags', 'tagController@index')->name('tags');
     Route::post ('tags', 'tagController@store');
+    Route::delete ('tags', 'tagController@delete');
+    Route::put('tags','tagController@update');
+    Route::get('search-tags', 'tagController@search')->name('search-tags');
+
 
     //payments
     //Orders

@@ -82,6 +82,10 @@ Route::group(['auth','user_is_admin'] , function(){
     Route::get('search-units', 'UnitController@search')->name('search-units');
     //categories
     Route::get ('categories', 'categoryController@index')->name('categories');
+    Route::post ('categories', 'categoryController@store');
+    Route::delete ('categories', 'categoryController@delete');
+    Route::put('categories','categoryController@update');
+    Route::get('search-categories', 'categoryController@search')->name('search-categories');
     //products
     Route::get ('products', 'productController@index')->name('products');
 

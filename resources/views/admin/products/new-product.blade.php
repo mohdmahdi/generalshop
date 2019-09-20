@@ -13,7 +13,7 @@
 
                     <div class="card-body">
 
-                        <form action="{{route('update-product')}}" method="post" class="row">
+                        <form action="{{ (!is_null($product))? route('update-product'): route('new-product')}}" method="post" class="row">
                             @csrf
                             @if(!is_null($product))
                                 <input type="hidden" name="_method" value="PUT">
@@ -62,21 +62,21 @@
 
                             <div class="form-group col-md-6">
                                 <label for="product_price">Product Price</label>
-                                <input type="number" class="form-control" id="product_price"  name= "product_price"
+                                <input type="number" class="form-control" id="product_price"  name= "product_price" step="any"
                                        placeholder="Product Price" required
                                        value="{{ (!is_null($product) ? $product->price : '') }}">
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label for="product_discount">Product Discount</label>
-                                <input type="number" class="form-control" id="product_discount"  name= "product_discount"
+                                <input type="number" class="form-control" id="product_discount"  name= "product_discount" step="any"
                                        placeholder="Product Discount" required
                                        value="{{ (!is_null($product) ? $product->discount : 0) }}">
                             </div>
 
                             <div class="form-group col-md-12">
                                 <label for="product_total">Total Available</label>
-                                <input type="number" class="form-control" id="product_total"  name= "product_total"
+                                <input type="number" class="form-control" id="product_total"  name= "product_total" step="any"
                                        placeholder="Total Available" required
                                        value="{{ (!is_null($product) ? $product->total : '') }}">
                             </div>
@@ -85,10 +85,14 @@
                                 <table id="options_table" class="table table-striped">
 
                                 </table>
-                                <a class="btn btn-primary add-option-btn" href="#">Add Option</a>
+                                <a class="btn btn-outline-dark add-option-btn" href="#">Add Option</a>
                             </div>
 
                             {{-- /options   --}}
+
+                            <div class="form-group col-md-6 offset-md-3">
+                                <button type="submit" class="btn btn-primary btn-block">SAVE</button>
+                            </div>
 
 
 
@@ -141,10 +145,13 @@
 
 @section('scripts')
     <script>
+
         $(document).ready(function(){
+            var optionNamesList = [];
            var $optionWindow = $('#options-window');
            var $addOptionBtn = $('.add-option-btn');
            var $optionsTable = $('#options_table');
+           var optionNamesRow ='';
            $addOptionBtn.on('click',function (e) {
                e.preventDefault();
                $optionWindow.modal('show')
@@ -169,6 +176,17 @@
                    return false;
                }
 
+
+            if(!optionNamesList.includes($optionName.val())){
+                optionNamesList.push($optionName.val());
+                optionNamesRow = '<td>' +
+                    '<input type="hidden" name="options[]" value="'+$optionName.val()+'">' +
+                    '</td>\n';
+
+            }
+
+
+
                var optionRow = '<tr> <td>' +$optionName.val()+' </td> ' +
                    '<td>'+$optionValue.val()+'</td> ' +
                    '<td><a href="" class="remove-option" ><i class="fas fa-minus-circle"></i></a> ' +
@@ -177,6 +195,10 @@
 
                $optionsTable.append(
                    optionRow
+               );
+
+               $optionsTable.append(
+                   optionNamesRow
                );
 
               $optionValue.val('')

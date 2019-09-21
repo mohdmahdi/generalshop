@@ -90,6 +90,29 @@
 
                             {{-- /options   --}}
 
+                            {{-- Images --}}
+                            <div class="form-group col-md-12">
+                                <div class="row">
+                                    @for($i=0 ; $i<6; $i++)
+                                        <div class="col-md-4 col-sm-12 mb-4">
+                                                <div class="card image-card-upload" >
+                                                    <a href="#" class="activate-image-upload" data-fileid="image-{{$i}}">
+                                                        <div class="card-body" style="text-align: center">
+
+                                                            {{--<i class="fas fa-image"></i>--}}
+                                                        </div>
+                                                    </a>
+
+                                                    <input name="product_images[]" type="file"
+                                                           class="form-control-file image-file-upload"
+                                                           id="image-{{$i}}">
+                                                </div>
+                                        </div>
+                                    @endfor
+                                </div>
+                            </div>
+                            {{-- /Images --}}
+
                             <div class="form-group col-md-6 offset-md-3">
                                 <button type="submit" class="btn btn-primary btn-block">SAVE</button>
                             </div>
@@ -152,6 +175,9 @@
            var $addOptionBtn = $('.add-option-btn');
            var $optionsTable = $('#options_table');
            var optionNamesRow ='';
+           var $activaeImageUpload = $('.activate-image-upload');
+
+
            $addOptionBtn.on('click',function (e) {
                e.preventDefault();
                $optionWindow.modal('show')
@@ -203,9 +229,40 @@
 
               $optionValue.val('')
 
-
-
            });
+
+            function readURL(input , imageID) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#'+imageID).attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+
+
+            $activaeImageUpload.on('click', function(e){
+                e.preventDefault();
+                var fileUploadID = $(this).data('fileid');
+                $('#'+fileUploadID).trigger('click');
+
+                var imagetag = '<img id="i'+fileUploadID+'" src="" class="card-img-top">';
+                $(this).append(imagetag);
+                $('#'+fileUploadID).on('change', function(){
+                    readURL(this , 'i'+fileUploadID);
+                });
+
+
+                // $('#'+fileUploadID).on('change', function(e){
+                //    readURL(this , 'i'+fileUploadID);
+                //
+                // });
+
+            });
 
         });
     </script>

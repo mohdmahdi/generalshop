@@ -10681,3 +10681,11 @@ a.remove-option {
   color: #ff4653;
 }
 
+a.activate-image-upload {
+  display: block;
+}
+
+input.image-file-upload {
+  display: none;
+}
+

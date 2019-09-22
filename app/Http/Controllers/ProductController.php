@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Image;
 use App\Product;
 use App\Unit;
 use http\Exception\RuntimeException;
@@ -86,6 +87,20 @@ class ProductController extends Controller
         }
 
         $product -> save();
+
+        if($request->hasFile('product_images')){
+            $images = $request->file('product_images');
+            foreach ($images as $image){
+                $path = $image->store('public');
+                $finalPath = env("MAIN_STORAGE_URL").$path;
+                $image = new Image();
+                $image->url = $finalPath;
+                $image->product_id = $product->id;
+                $image->save();
+
+            }
+        }
+
         Session::flash('message','Product has been Added ');
         return redirect(route('products'));
 

@@ -13,7 +13,7 @@
 
                     <div class="card-body">
 
-                        <form action="{{ (!is_null($product))? route('update-product'): route('new-product')}}" method="post" class="row">
+                        <form action="{{ (!is_null($product))? route('update-product'): route('new-product')}}" method="post" class="row" enctype="multipart/form-data">
                             @csrf
                             @if(!is_null($product))
                                 <input type="hidden" name="_method" value="PUT">
@@ -96,10 +96,10 @@
                                     @for($i=0 ; $i<6; $i++)
                                         <div class="col-md-4 col-sm-12 mb-4">
                                                 <div class="card image-card-upload" >
+                                                    <a href="" class="remove-image-upload"> <i class="fas fa-minus-circle"></i></a>
                                                     <a href="#" class="activate-image-upload" data-fileid="image-{{$i}}">
                                                         <div class="card-body" style="text-align: center">
-
-                                                            {{--<i class="fas fa-image"></i>--}}
+                                                            <i class="fas fa-image"></i>
                                                         </div>
                                                     </a>
 
@@ -243,17 +243,31 @@
                 }
             }
 
+            function resetFileUpload(fileUploadID, imageID, $eI , $eD){
+                $('#'+imageID).attr('src' ,'');
+                $eI.fadeIn();
+                $eD.fadeOut();
+                $('#'+fileUploadID).val('');
+            }
 
 
             $activaeImageUpload.on('click', function(e){
                 e.preventDefault();
                 var fileUploadID = $(this).data('fileid');
+                var me = $(this);
                 $('#'+fileUploadID).trigger('click');
 
                 var imagetag = '<img id="i'+fileUploadID+'" src="" class="card-img-top">';
                 $(this).append(imagetag);
                 $('#'+fileUploadID).on('change', function(){
                     readURL(this , 'i'+fileUploadID);
+                    me.find('i').fadeOut();
+                    var $removeThisImage = me.parent().find('.remove-image-upload');
+                    $removeThisImage.fadeIn();
+                    $removeThisImage.on('click' , function(e){
+                        e.preventDefault();
+                        resetFileUpload(fileUploadID , 'i'+fileUploadID , me.find('i') , $removeThisImage );
+                    });
                 });
 
 

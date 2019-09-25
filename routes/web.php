@@ -92,9 +92,11 @@ Route::group(['auth','user_is_admin'] , function(){
     Route::get ('products', 'productController@index')->name('products');
 
     Route::get ('new-product', 'productController@newProduct')->name('new-product');
-    Route::get ('update-product/{id}', 'productController@newProduct')->name('update-product');
-    Route::put ('update-product', 'productController@update')->name('update-product');
     Route::post ('new-product', 'productController@store');
+    Route::Post('delete-image' , 'productController@deleteImage')->name('delete-image');
+    Route::get ('update-product/{id}', 'productController@newProduct')->name('update-product-form');
+    Route::put ('update-product', 'productController@update')->name('update-product');
+
     Route::delete ('products/{id}', 'productController@delete');
 
 

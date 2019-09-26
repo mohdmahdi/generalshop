@@ -99,9 +99,8 @@ class ProductController extends Controller
             $images = $request->file('product_images');
             foreach ($images as $image){
                 $path = $image->store('public');
-                $finalPath = env("MAIN_STORAGE_URL").$path;
                 $image = new Image();
-                $image->url = $finalPath;
+                $image->url = $path;
                 $image->product_id = $product->id;
                 $image->save();
 

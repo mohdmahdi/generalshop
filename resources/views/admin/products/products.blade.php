@@ -16,7 +16,20 @@
                                         <h5>{{$product->title}}</h5>
                                         <p>category:{{(is_object($product->category))? $product->category->name:''}}</p>
                                         <p>Price:{{$currency_code}}{{$product->price}}</p>
-                                        {!! (count($product->images)>0)? '<img class="img-thumbnail card-img" src="'.$product->images[0]->url.'"/>':'' !!}
+
+                                        @php
+                                            $imageUrl= '';
+                                            if(count($product->images)>0){
+                                                if(strpos($product->images[0]->url ,'https')!== false  || strpos($product->images[0]->url ,'https') !== false  ){
+                                                    $imageUrl = $product->images[0]->url;
+                                                }else{
+                                                    $imageUrl = asset('/storage/'.$product->images[0]->url);
+                                                }
+                                            }
+                                        @endphp
+
+
+                                        {!! (count($product->images)>0)? '<img class="img-thumbnail card-img" src="'. $imageUrl .'"/>':'' !!}
 
                                         @if(!is_null($product->options))
 

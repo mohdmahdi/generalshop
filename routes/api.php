@@ -13,6 +13,28 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// get Categories
+Route::get('categories' , 'Api\CategroyController@index');
+Route::get('categories/{id}' , 'Api\CategroyController@show');
+// get Tags
+Route::get('tags' , 'Api\TagController@index');
+Route::get('tags/{id}' , 'Api\TagController@show');
+
+// get products
+Route::get('products' , 'Api\ProductController@index');
+Route::get('products/{id}' , 'Api\ProductController@show');
+
+// general Routes
+
+Route::get('countries' , 'Api\CountryController@index');
+Route::get('countries/{id}/cities' , 'Api\CountryController@showCities');
+Route::get('countries/{id}/states' , 'Api\CountryController@showStates');
+
+
+
+
+Route::group(['auth:api'] , function (){
+
+
 });
+

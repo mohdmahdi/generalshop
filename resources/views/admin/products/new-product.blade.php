@@ -120,10 +120,10 @@
                                     @for($i=0 ; $i<6; $i++)
                                         <div class="col-md-4 col-sm-12 mb-4">
                                                 <div class="card image-card-upload" >
-
-                                                    @if(!is_null($product->images) && count($product->images)>0)
+                                                    @if( !is_null($product) && !is_null($product->images) && count($product->images)>0)
                                                         @if(isset($product->images[$i])&& !is_null($product->images[$i]) && !empty($product->images[$i]))
-                                                            <a href="" class="remove-image-upload" data-imageid ="{{$product->images[$i]->id}}" data-removeimg="removeimg-{{$i}}" data-fileid="image-{{$i}}"> <i class="fas fa-minus-circle"></i></a>
+                                                            <a href="" class="remove-image-upload" data-imageid ="{{$product->images[$i]->id}}"
+                                                               data-removeimg="removeimg-{{$i}}" data-fileid="image-{{$i}}"> <i class="fas fa-minus-circle"></i></a>
                                                         @else
                                                             <a href="" class="remove-image-upload" style="display: none;"> <i class="fas fa-minus-circle"></i></a>
                                                         @endif
@@ -131,7 +131,7 @@
 
                                                     <a href="#" class="activate-image-upload" data-fileid="image-{{ $i }}" id="removeimg-{{ $i }}">
 
-                                                        @if(!is_null($product->images) && count($product->images)>0)
+                                                        @if(!is_null($product) && !is_null($product->images) && count($product->images)>0)
                                                             @if(isset($product->images[$i])&& !is_null($product->images[$i]) && !empty($product->images[$i]))
                                                                 <img id="{{'iimage-'.$i}}" src="{{asset($product->images[$i]->url)}}" class="card-img-top">
                                                             @endif

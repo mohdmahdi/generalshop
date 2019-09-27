@@ -29,7 +29,6 @@ class ProductController extends Controller
                 'hasUnit',
                 'category',
                 'images',
-
             ])->find($id);
         }
 
@@ -37,10 +36,12 @@ class ProductController extends Controller
         $categories = Category::all();
 
 
+
         return view('admin.products.new-product')->with([
             'product' => $product,
             'units' => $units,
             'categories' => $categories,
+
         ]);
     }
     public function delete ($id ) {

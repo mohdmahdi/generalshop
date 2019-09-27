@@ -128,6 +128,7 @@
                                                             <a href="" class="remove-image-upload" style="display: none;"> <i class="fas fa-minus-circle"></i></a>
                                                         @endif
                                                     @endif
+                                                    //testing
 
                                                     <a href="#" class="activate-image-upload" data-fileid="image-{{ $i }}" id="removeimg-{{ $i }}">
 

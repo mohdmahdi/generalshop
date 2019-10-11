@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 // get Categories
 Route::get('categories' , 'Api\CategroyController@index');
 Route::get('categories/{id}' , 'Api\CategroyController@show');
+Route::get('categories/{id}/products' , 'Api\CategroyController@products');
 // get Tags
 Route::get('tags' , 'Api\TagController@index');
 Route::get('tags/{id}' , 'Api\TagController@show');

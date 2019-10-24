@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 
 // get Categories
 Route::get('categories' , 'Api\CategroyController@index');
+
 Route::get('categories/{id}' , 'Api\CategroyController@show');
 Route::get('categories/{id}/products' , 'Api\CategroyController@products');
 // get Tags
@@ -36,13 +37,20 @@ Route::post('auth/login' , 'Api\AuthController@login');
 
 
 
+
 //Route::get('users' , function (){
 //    return \App\Http\Resources\UserFullResource::collection(\App\User::paginate());
 //});
 
 
-Route::group(['auth:api'] , function (){
+Route::middleware('auth:api')->group(function(){
 
+    Route::post('carts' , 'Api\CartController@addProductToCart');
 
 });
+
+
+
+
+
 

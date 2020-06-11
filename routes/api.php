@@ -46,6 +46,8 @@ Route::post('auth/login' , 'Api\AuthController@login');
 Route::middleware('auth:api')->group(function(){
 
     Route::post('carts' , 'Api\CartController@addProductToCart');
+    Route::get('carts' , 'Api\CartController@index');
+
 
 });
 

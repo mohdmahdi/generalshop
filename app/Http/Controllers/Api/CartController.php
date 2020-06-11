@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Cart;
 use App\Http\Resources\CartResource;
+use App\Http\Resources\ProductResource;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,6 +12,29 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
+
+    public function index(){
+        $user = Auth::user();
+        $cart = $user ->cart;
+       $cartItems = json_decode($cart->cart_items);
+       $finalCartItems = [];
+       foreach($cartItems as $cartItem){
+           $product = Product::find(intVal($cartItem->product->id));
+           $finalCartItem = new\stdClass();
+           $finalCartItem->product = new ProductResource($product);
+           $finalCartItem->qty = number_format(doubleval($cartItem->qty) , 2);
+           array_push($finalCartItems , $finalCartItem);
+       }
+
+       return [
+         'cart_items' => $finalCartItems,
+           'id' => $cart->id,
+           'total' => $cart->total,
+       ];
+
+        return$cart;
+
+    }
     public function addProductToCart(Request $request){
         $request->validate([
             'product_id' => 'required',
